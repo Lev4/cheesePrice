@@ -1,5 +1,3 @@
-
-# A very simple Flask Hello World app for you to get started with...
 from flask import Flask
 from flask import request
 from flask import Response
@@ -9,11 +7,8 @@ from mortgage import Mortgage
 from botutils import parse_message, send_message
 from tokens import gipo_token, cheeze_token
 
-
-
 app = Flask(__name__)
 sslify = SSLify(app)
-
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -83,7 +78,6 @@ def cheesebothandler():
     if request.method == 'POST':
         msg = request.get_json()
         parsed = parse_message(msg)
-
 
         if parsed['txt'] == '/price':
             try:
