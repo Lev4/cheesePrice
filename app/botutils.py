@@ -1,3 +1,4 @@
+import requests
 
 def parse_message(message):
     parsed = dict()
