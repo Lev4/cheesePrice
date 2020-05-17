@@ -15,8 +15,6 @@ def index():
     return '<h1>Buongiorno!!!</h1>'
 
 
-
-
 @app.route('/gipo', methods=['POST', 'GET'])
 def bothandler():
     """
