@@ -9,7 +9,7 @@ from app.cheeseprice import getCheesePrice
 from tokens import gipo_token, cheeze_token
 import requests
 import numpy as np
-#import matplotlib.pyplot as plt
+
 
 app = Flask(__name__)
 sslify = SSLify(app)
