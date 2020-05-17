@@ -15,7 +15,8 @@ def getCheesePrice():
         "Колмогоровский" : "kolmo_15-price",
         "Золотой рубль" : "gold_16-price",
         "Губернаторский" : "gub_6-price",
-        "Красногорский" : "sve_7-price",
+        "Красногорский" : "krest_17-price",
+        "Свежий для жарки" : "sve_7-price"
     }
 
     url = "https://parmezan.ru/Zakaz"
@@ -27,7 +28,7 @@ def getCheesePrice():
     for k, v in cheesePriceId.items():
         if soup.find(id=v) is not None:
             cheesePrice[k] = soup.find(id=v).text.strip()
-            cheesePrice['date'] = datetime.today().strftime("%b-%d-%Y")
+            cheesePrice['date'] = datetime.today().strftime("%m-%d-%Y")
 
     return cheesePrice
 

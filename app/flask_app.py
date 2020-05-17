@@ -5,7 +5,7 @@ from flask import Flask
 from flask import request
 from flask import Response
 from flask_sslify import SSLify
-from cheeseprice import getCheesePrice
+from app.cheeseprice import getCheesePrice
 from tokens import gipo_token, cheeze_token
 import requests
 import numpy as np
