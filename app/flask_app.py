@@ -1,6 +1,5 @@
 
 # A very simple Flask Hello World app for you to get started with...
-
 from flask import Flask
 from flask import request
 from flask import Response
@@ -8,7 +7,6 @@ from flask_sslify import SSLify
 from cheeseprice import getCheesePrice
 from tokens import gipo_token, cheeze_token
 import requests
-import numpy as np
 
 
 app = Flask(__name__)

@@ -33,4 +33,4 @@ def getCheesePrice():
     return cheesePrice
 
 if __name__ == '__main__':
-    getCheesePrice())
+    getCheesePrice()
