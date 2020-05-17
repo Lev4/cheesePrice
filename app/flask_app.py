@@ -5,73 +5,14 @@ from flask import request
 from flask import Response
 from flask_sslify import SSLify
 from cheeseprice import getCheesePrice
+from mortgage import Mortgage
+from botutils import parse_message, send_message
 from tokens import gipo_token, cheeze_token
-import requests
+
 
 
 app = Flask(__name__)
 sslify = SSLify(app)
-
-
-
-
-
-def parse_message(message):
-    parsed = dict()
-    parsed['chat_id'] = message['message']['chat']['id']
-    parsed['txt'] = message['message']['text']
-    parsed['user_id'] = message['message']['from']['id']
-    parsed['first_name'] = message['message']['from']['first_name']
-    parsed['last_name'] = message['message']['from']['last_name']
-    parsed['username'] = message['message']['from']['username']
-    parsed['message_id'] = message['message']['message_id']
-    parsed['update_id'] = message['update_id']
-    parsed['mes_date'] = message['message']['date']
-    return parsed
-
-def send_message(chat_id, token, text='bla-bla-bla'):
-    url = f'https://api.telegram.org/bot{token}/sendMessage'
-    payload = {'chat_id': chat_id, 'text': text}
-    r = requests.post(url, json=payload)
-    return r
-
-
-class Mortgage():
-    """
-    Рассчитывает платежи по ипотеке
-    """
-
-    def __init__(self):
-        self.home_value = None
-        self.down_payment_percent = None
-        self.down_payment = None
-        self.mortgage_loan = None
-        self.mortgage_rate = None
-        self.years = None
-        self.mortgage_rate_periodic=None
-        self.mortgage_payment_periods = None
-        self.periodic_mortgage_payment = None
-        self.initial_interest_payment = None
-        self.initial_principal_payment = None
-
-    def _get_data(self):
-
-        self.home_value = int(input('Ввведите стоимость объекта: \n'))
-        self.down_payment_percent = float(input('Ввведите первоначальный взнос в %: \n')) / 100
-        self.mortgage_rate = float(input('Ввведите процентную ставку в %: \n')) / 100
-        self.years = int(input('Ввведите количество лет ипотеки: \n'))
-
-    def run(self):
-        self.down_payment = self.home_value*self.down_payment_percent
-        self.mortgage_loan = self.home_value - self.down_payment
-        self.mortgage_rate_periodic = (1+self.mortgage_rate)**(1/12) - 1
-        self.mortgage_payment_periods = self.years *12
-        self.periodic_mortgage_payment = -1*np.pmt(self.mortgage_rate_periodic, self.mortgage_payment_periods, self.mortgage_loan)
-        self.initial_interest_payment = self.mortgage_loan*self.mortgage_rate_periodic
-        self.initial_principal_payment = self.periodic_mortgage_payment - self.initial_interest_payment
-
-
-
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -136,7 +77,7 @@ def bothandler():
 @app.route('/cheeze', methods=['POST', 'GET'])
 def cheesebothandler():
     """
-    Обрабатывает запросы к боту
+    Обрабатывает запросы к сырному боту
     :return:
     """
     if request.method == 'POST':
