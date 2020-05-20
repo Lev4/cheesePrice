@@ -91,13 +91,11 @@ def cheesebothandler():
                 send_message(parsed['chat_id'], cheeze_token, f"На {cheeze_price['date']}")
                 date = cheeze_price['date']
                 for k, v in cheeze_price.items():
-
                     p.addprice('00000', v, cheeze_price['date'], date)
-                    if k == "date":
-                        pass
-                    else:
 
-                        send_message(parsed['chat_id'], cheeze_token, f"{k}:{v} руб/кг")
+                list_of_prices = p.show_prices()
+                for el in list_of_prices:
+                    send_message(parsed['chat_id'], cheeze_token, f"{el[0]}:{el[1]} {el[2]} {el[3]} ")
             except :
                 print("Проблема с cheeze_price")
                 cheeze_price = "-"
