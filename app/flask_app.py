@@ -6,6 +6,14 @@ from cheeseprice import getCheesePrice
 from mortgage import Mortgage
 from botutils import parse_message, send_message
 from tokens import gipo_token, cheeze_token
+from prices import Prices
+# from users import Users
+
+prices_db = "prices.sqlite3"
+users_db = "users.sqlite3"
+
+p = Prices(prices_db)
+p.create_tab()
 
 app = Flask(__name__)
 sslify = SSLify(app)
@@ -81,10 +89,14 @@ def cheesebothandler():
             try:
                 cheeze_price = getCheesePrice()
                 send_message(parsed['chat_id'], cheeze_token, f"На {cheeze_price['date']}")
+                date = cheeze_price['date']
                 for k, v in cheeze_price.items():
+
+                    p.addprice('00000', v, cheeze_price['date'], date)
                     if k == "date":
                         pass
                     else:
+
                         send_message(parsed['chat_id'], cheeze_token, f"{k}:{v} руб/кг")
             except :
                 print("Проблема с cheeze_price")
