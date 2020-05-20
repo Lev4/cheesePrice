@@ -39,3 +39,7 @@ class Prices:
     def show_prices(self):
         stmt = f"SELECT * FROM prices"
         return self._stmt_executer(stmt, get_data=True)
+
+    def show_prices_by_date(self, target_date):
+        stmt = f"SELECT * FROM prices WHERE date = {target_date}"
+        return self._stmt_executer(stmt, get_data=True)
