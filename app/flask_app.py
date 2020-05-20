@@ -94,18 +94,16 @@ def cheesebothandler():
                 all_dates = list(set([x[0] for x in p.show_dates()]))
 
                 if current_date in all_dates:
-
                     list_of_prices = p.show_prices_by_date(current_date)
-                    print(len(list_of_prices))
                     for el in list_of_prices:
-                        send_message(parsed['chat_id'], cheeze_token, f"{el[0]}:{el[1]} {el[2]} {el[3]} ")
+                        send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
                 else:
                     for k, v in cheeze_price.items():
-                        p.addprice('00000', v, cheeze_price['date'], date)
+                        p.addprice('00000', k, v, date)
 
                     list_of_prices = p.show_prices_by_date(current_date)
                     for el in list_of_prices:
-                        send_message(parsed['chat_id'], cheeze_token, f"{el[0]}:{el[1]} {el[2]} {el[3]} ")
+                        send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
             except :
                 print("Проблема с cheeze_price")
                 cheeze_price = "-"
