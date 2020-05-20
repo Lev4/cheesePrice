@@ -6,6 +6,7 @@ from cheeseprice import getCheesePrice
 from mortgage import Mortgage
 from botutils import parse_message, send_message
 from tokens import gipo_token, cheeze_token
+from datetime import datetime
 from prices import Prices
 # from users import Users
 
@@ -89,13 +90,19 @@ def cheesebothandler():
             try:
                 cheeze_price = getCheesePrice()
                 send_message(parsed['chat_id'], cheeze_token, f"На {cheeze_price['date']}")
-                date = cheeze_price['date']
-                for k, v in cheeze_price.items():
-                    p.addprice('00000', v, cheeze_price['date'], date)
+                current_date = datetime.today().strftime("%d-%m-%Y")
+                all_dates = p.show_dates()
+                if current_date in all_dates:
+                    list_of_prices = p.show_prices_by_date(current_date)
+                    for el in list_of_prices:
+                        send_message(parsed['chat_id'], cheeze_token, f"{el[0]}:{el[1]} {el[2]} {el[3]} ")
+                else:
+                    for k, v in cheeze_price.items():
+                        p.addprice('00000', v, cheeze_price['date'], date)
 
-                list_of_prices = p.show_prices()
-                for el in list_of_prices:
-                    send_message(parsed['chat_id'], cheeze_token, f"{el[0]}:{el[1]} {el[2]} {el[3]} ")
+                    list_of_prices = p.show_prices_by_date(current_date)
+                    for el in list_of_prices:
+                        send_message(parsed['chat_id'], cheeze_token, f"{el[0]}:{el[1]} {el[2]} {el[3]} ")
             except :
                 print("Проблема с cheeze_price")
                 cheeze_price = "-"
