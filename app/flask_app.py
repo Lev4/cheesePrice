@@ -92,8 +92,10 @@ def cheesebothandler():
                 send_message(parsed['chat_id'], cheeze_token, f"На {cheeze_price['date']}")
                 current_date = datetime.today().strftime("%d-%m-%Y")
                 all_dates = p.show_dates()
+                print(all_dates)
                 if current_date in all_dates:
                     list_of_prices = p.show_prices_by_date(current_date)
+                    print(len(list_of_prices))
                     for el in list_of_prices:
                         send_message(parsed['chat_id'], cheeze_token, f"{el[0]}:{el[1]} {el[2]} {el[3]} ")
                 else:
