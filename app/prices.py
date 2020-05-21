@@ -47,3 +47,4 @@ class Prices:
     def show_dates(self):
         stmt = f"SELECT date FROM prices "
         return self._stmt_executer(stmt, get_data=True)
+
