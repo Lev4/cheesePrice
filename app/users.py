@@ -1,4 +1,5 @@
 import sqlite3
+
 class Users:
 
     def __init__(self, db):
@@ -32,11 +33,16 @@ class Users:
         self._stmt_executer(stmt)
 
     def update_user_status(self, user_id, status):
-        stmt = f"UPDATE users SET status = {status} WHERE user_id = {user_id} "
+        stmt = f"UPDATE users SET status = '{status}' WHERE user_id = '{user_id}' "
         self._stmt_executer(stmt)
 
 
     def get_users_to_update(self):
         stmt = f"SELECT user_id FROM users WHERE status = 'YES' "
+        self._stmt_executer(stmt)
+        return self._stmt_executer(stmt, get_data=True)
+
+    def get_users_id(self):
+        stmt = f"SELECT user_id FROM users"
         self._stmt_executer(stmt)
         return self._stmt_executer(stmt, get_data=True)

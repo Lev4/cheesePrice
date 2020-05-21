@@ -10,21 +10,7 @@ from datetime import datetime
 from prices import Prices
 # from users import Users
 
-prices_db = "prices.sqlite3"
-users_db = "users.sqlite3"
 
-p = Prices(prices_db)
-p.create_tab()
-
-app = Flask(__name__)
-sslify = SSLify(app)
-
-@app.route('/', methods=['POST', 'GET'])
-def index():
-    return '<h1>Buongiorno!!!</h1>'
-
-
-@app.route('/gipo', methods=['POST', 'GET'])
 def bothandler():
     """
     Обрабатывает запросы к боту
@@ -74,48 +60,3 @@ def bothandler():
             return Response('Ok', status=200)
     else:
         return '<h1>Gipo</h1>'
-
-
-@app.route('/cheeze', methods=['POST', 'GET'])
-def cheesebothandler():
-    """
-    Обрабатывает запросы к сырному боту
-    :return:
-    """
-    if request.method == 'POST':
-        msg = request.get_json()
-        parsed = parse_message(msg)
-
-        if parsed['txt'] == '/price':
-
-            cheeze_price = getCheesePrice()
-            current_date = datetime.today().strftime("%d-%m-%Y")
-            send_message(parsed['chat_id'], cheeze_token, f"На {current_date}")
-
-            all_dates = list(set([x[0] for x in p.show_dates()]))
-
-            if current_date in all_dates:
-                list_of_prices = p.show_prices_by_date(current_date)
-                for el in list_of_prices:
-                    send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
-            else:
-
-                for k, v in cheeze_price.items():
-                    p.addprice('00000', k, v, current_date)
-                list_of_prices = p.show_prices_by_date(current_date)
-
-                for el in list_of_prices:
-                    send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
-
-            return Response('Ok', status=200)
-
-        else:
-            send_message(parsed['chat_id'], cheeze_token, parsed['txt'])
-            return Response('Ok', status=200)
-    else:
-        return '<h1>Cheeeese</h1>'
-
-
-
-if __name__ == '__main__':
-    app.run()
