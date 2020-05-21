@@ -95,13 +95,15 @@ def cheesebothandler():
                 print(all_dates, current_date)
                 print(current_date in all_dates)
                 if current_date in all_dates:
+
                     list_of_prices = p.show_prices_by_date(current_date)
                     for el in list_of_prices:
                         send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
                 else:
+                    print("Hey befor")
                     for k, v in cheeze_price.items():
                         p.addprice('00000', k, v, date)
-
+                    print("Hey after")
                     list_of_prices = p.show_prices_by_date(current_date)
                     print(f"list_of_prices - {list_of_prices}")
                     for el in list_of_prices:
