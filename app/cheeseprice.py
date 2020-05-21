@@ -2,8 +2,11 @@ from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
 
+prices_db = "prices.sqlite3"
 
-def getCheesePrice():
+
+
+def getCheesePrice(save_to_db=False):
 
     """ Залезает на сайт parmezan.ru и вытаскивает оттуда цены"""
 
@@ -33,8 +36,20 @@ def getCheesePrice():
             cheesePrice[k] = soup.find(id=v).text.strip()
             # cheesePrice['date'] = datetime.today().strftime("%d-%m-%Y")
 
+    if save_to_db:
+
+        p = Prices(prices_db)
+        p.create_tab()
+        current_date = datetime.today().strftime("%d-%m-%Y")
+        all_dates = list(set([x[0] for x in p.show_dates()]))
+
+        if current_date not in all_dates:
+            for k, v in cheeze_price.items():
+                p.addprice(cheesePriceId[k], k, v, current_date)
+
+
     return cheesePrice
 
 
 if __name__ == '__main__':
-    getCheesePrice()
+    getCheesePrice(save_to_db=True)
