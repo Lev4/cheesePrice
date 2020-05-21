@@ -31,7 +31,7 @@ def getCheesePrice():
     for k, v in cheesePriceId.items():
         if soup.find(id=v) is not None:
             cheesePrice[k] = soup.find(id=v).text.strip()
-            cheesePrice['date'] = datetime.today().strftime("%d-%m-%Y")
+            # cheesePrice['date'] = datetime.today().strftime("%d-%m-%Y")
 
     return cheesePrice
 
