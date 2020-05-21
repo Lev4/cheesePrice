@@ -102,7 +102,7 @@ def cheesebothandler():
             else:
                 print("Hey befor")
                 for k, v in cheeze_price.items():
-                    p.addprice('00000', k, v, date)
+                    p.addprice('00000', k, v, current_date)
                 print("Hey after")
                 list_of_prices = p.show_prices_by_date(current_date)
                 print(f"list_of_prices - {list_of_prices}")
