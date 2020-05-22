@@ -100,7 +100,7 @@ def cheesebothandler():
                 list_of_prices = p.show_prices_by_date(current_date)
                 for el in list_of_prices:
                     send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
-                p.comcompare_prices(yesterday_date, current_date)
+                p.compare_prices(yesterday_date, current_date)
             else:
                 cheeze_price = getCheesePrice(save_to_db=True)
                 list_of_prices = p.show_prices_by_date(current_date)
