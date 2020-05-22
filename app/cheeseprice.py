@@ -44,7 +44,7 @@ def getCheesePrice(save_to_db=False):
         all_dates = list(set([x[0] for x in p.show_dates()]))
 
         if current_date not in all_dates:
-            for k, v in cheeze_price.items():
+            for k, v in cheesePrice.items():
                 p.addprice(cheesePriceId[k], k, v, current_date)
             print("add to db")
         else:
