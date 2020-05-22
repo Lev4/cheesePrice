@@ -48,3 +48,16 @@ class Prices:
         stmt = f"SELECT date FROM prices "
         return self._stmt_executer(stmt, get_data=True)
 
+    def compare_prices(self, date1, date2):
+        """ Сравнивает цены на сыр по двум датам """
+
+        cols = ['cheese_id', 'cheesename', 'price1', 'date']
+        tab1 = pd.DataFrame(self.show_prices_by_date(date1), columns=cols).drop(['cheese_id', 'date'], axis=1)
+        cols = ['cheese_id', 'cheesename', 'price2', 'date']
+        tab2 = pd.DataFrame(self.show_prices_by_date(date2), columns=cols).drop(['cheese_id', 'date'], axis=1)
+        tab = pd.merge(tab1, tab2, on="cheesename")
+        tab['diff'] = tab['price1'].astype('int') - tab['price1'].astype('int')
+        diff_dict = dict(zip(tab['cheesename'].tolist(), tab['diff'].tolist()))
+        return diff_dict
+
+

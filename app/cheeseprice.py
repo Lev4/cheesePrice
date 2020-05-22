@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
-
+from prices import Prices
 prices_db = "prices.sqlite3"
 
 
@@ -46,6 +46,9 @@ def getCheesePrice(save_to_db=False):
         if current_date not in all_dates:
             for k, v in cheeze_price.items():
                 p.addprice(cheesePriceId[k], k, v, current_date)
+            print("add to db")
+        else:
+            print(f"На {current_date} уже загружены цены")
 
 
     return cheesePrice

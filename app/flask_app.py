@@ -88,9 +88,9 @@ def cheesebothandler():
 
         if parsed['txt'] == '/price':
 
-            cheeze_price = getCheesePrice()
+            # cheeze_price = getCheesePrice()
             current_date = datetime.today().strftime("%d-%m-%Y")
-            send_message(parsed['chat_id'], cheeze_token, f"На {current_date}")
+            send_message(parsed['chat_id'], cheeze_token, f"На {current_date} цены на сыр таковы:")
 
             all_dates = list(set([x[0] for x in p.show_dates()]))
 
@@ -99,11 +99,8 @@ def cheesebothandler():
                 for el in list_of_prices:
                     send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
             else:
-
-                for k, v in cheeze_price.items():
-                    p.addprice('00000', k, v, current_date)
+                cheeze_price = getCheesePrice(save_to_db=True)
                 list_of_prices = p.show_prices_by_date(current_date)
-
                 for el in list_of_prices:
                     send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
 
@@ -114,6 +111,8 @@ def cheesebothandler():
             return Response('Ok', status=200)
     else:
         return '<h1>Cheeeese</h1>'
+
+
 
 
 
