@@ -8,6 +8,7 @@ from botutils import parse_message, send_message
 from tokens import gipo_token, cheeze_token
 from datetime import datetime, timedelta
 from prices import Prices
+
 # from users import Users
 
 prices_db = "prices.sqlite3"
