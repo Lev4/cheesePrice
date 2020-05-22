@@ -6,7 +6,7 @@ from cheeseprice import getCheesePrice
 from mortgage import Mortgage
 from botutils import parse_message, send_message
 from tokens import gipo_token, cheeze_token
-from datetime import datetime
+from datetime import datetime, timedelta
 from prices import Prices
 # from users import Users
 
@@ -90,6 +90,8 @@ def cheesebothandler():
 
             # cheeze_price = getCheesePrice()
             current_date = datetime.today().strftime("%d-%m-%Y")
+            yesterday_date = datetime.today() - timedelta(days=1)
+            yesterday_date = yesterday_date.strftime("%d-%m-%Y")
             send_message(parsed['chat_id'], cheeze_token, f"На {current_date} цены на сыр таковы:")
 
             all_dates = list(set([x[0] for x in p.show_dates()]))
@@ -98,6 +100,7 @@ def cheesebothandler():
                 list_of_prices = p.show_prices_by_date(current_date)
                 for el in list_of_prices:
                     send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
+                p.comcompare_prices(yesterday_date, current_date)
             else:
                 cheeze_price = getCheesePrice(save_to_db=True)
                 list_of_prices = p.show_prices_by_date(current_date)
