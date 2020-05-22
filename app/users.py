@@ -9,7 +9,7 @@ class Users:
         con = sqlite3.connect(self.db)
         c = con.cursor()
         if get_data:
-            data_result =  c.execute(query).fetchall()
+            data_result = c.execute(query).fetchall()
             con.commit()
             con.close()
 
@@ -27,7 +27,6 @@ class Users:
         """
         self._stmt_executer(stmt)
 
-
     def adduser(self, user_id, username, status):
         stmt = f"INSERT INTO users ('user_id','username','status') VALUES ('{user_id}','{username}','{status}')"
         self._stmt_executer(stmt)
@@ -35,7 +34,6 @@ class Users:
     def update_user_status(self, user_id, status):
         stmt = f"UPDATE users SET status = '{status}' WHERE user_id = '{user_id}' "
         self._stmt_executer(stmt)
-
 
     def get_users_to_update(self):
         stmt = f"SELECT user_id FROM users WHERE status = 'YES' "
