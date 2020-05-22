@@ -6,7 +6,7 @@ prices_db = "prices.sqlite3"
 
 
 
-def getCheesePrice(save_to_db=False):
+def getCheesePrice(save_to_db=False, check_price=False):
 
     """ Залезает на сайт parmezan.ru и вытаскивает оттуда цены"""
 
@@ -51,8 +51,15 @@ def getCheesePrice(save_to_db=False):
             print(f"На {current_date} уже загружены цены")
 
 
+        # if check_price:
+        #     message = p.check_price_change()
+        #     if len(message) > 0:
+        #         send_message(parsed['chat_id'], cheeze_token, parsed['txt'])
+
+
+
     return cheesePrice
 
 
 if __name__ == '__main__':
-    getCheesePrice(save_to_db=True)
+    getCheesePrice(save_to_db=True, check_price=False)

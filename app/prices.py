@@ -1,6 +1,7 @@
 import sqlite3
 import pandas as pd
 
+
 class Prices:
 
     def __init__(self, db):
@@ -48,7 +49,7 @@ class Prices:
         stmt = f"SELECT date FROM prices "
         return self._stmt_executer(stmt, get_data=True)
 
-    def compare_prices(self, date1, date2):
+    def _compare_prices(self, date1, date2):
         """ Сравнивает цены на сыр по двум датам """
 
         cols = ['cheese_id', 'cheesename', 'price1', 'date']
@@ -61,4 +62,16 @@ class Prices:
         print(diff_dict)
         return diff_dict
 
+    def check_price_change(self):
 
+        diff_dict = _compare_prices(self, date1, date2)
+        message = ""
+        for cheese_name, price_diff in diff_dict.items():
+            if price_diff > 0:
+                message += f"Цена на {cheese_name} сыр выросла\n"
+            elif price_diff < 0:
+                message += f"Цена на {cheese_name} сыр снизилась\n"
+            else:
+                print(f"Цена на {cheese_name} не изменилась")
+
+        return message
