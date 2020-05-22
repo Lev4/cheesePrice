@@ -58,6 +58,7 @@ class Prices:
         tab = pd.merge(tab1, tab2, on="cheesename")
         tab['diff'] = tab['price1'].astype('int') - tab['price1'].astype('int')
         diff_dict = dict(zip(tab['cheesename'].tolist(), tab['diff'].tolist()))
+        print(diff_dict)
         return diff_dict
 
 
