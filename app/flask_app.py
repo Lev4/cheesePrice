@@ -87,7 +87,7 @@ def cheesebothandler():
         parsed = parse_message(msg)
 
         if parsed['txt'] == '/price':
-
+            u.adduser(parsed['user_id'], parsed['username'], "NO")
             usersss = u.get_users_id()
             print(usersss)
             if parsed['user_id'] not in usersss:
