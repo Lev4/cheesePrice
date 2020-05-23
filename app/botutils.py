@@ -7,9 +7,9 @@ def parse_message(message):
     parsed['user_id'] = message['message']['from']['id']
     parsed['first_name'] = message['message']['from']['first_name']
     parsed['last_name'] = message['message']['from']['last_name']
-    if message['message']['from']['username']:
+    try:
         parsed['username'] = message['message']['from']['username']
-    else:
+    except KeyError:
         parsed['username'] = ""
     parsed['message_id'] = message['message']['message_id']
     parsed['update_id'] = message['update_id']
