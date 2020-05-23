@@ -8,6 +8,7 @@ from botutils import parse_message, send_message
 from tokens import gipo_token, cheeze_token
 from datetime import datetime, timedelta
 from prices import Prices
+from users import Users
 from calculatorBotHandler import inner_gipo_handler
 
 prices_db = "prices.sqlite3"
