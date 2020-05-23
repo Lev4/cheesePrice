@@ -36,7 +36,6 @@ def gipo_handler():
        if (not parsed['txt']):
            send_message(parsed['chat_id'], gipo_token, '...')
            return Response('Ok', status=200)
-
        elif parsed['txt'] == '/calc':
            send_message(parsed['chat_id'], gipo_token, 'Ввведите через разделитель следующие данные')
            send_message(parsed['chat_id'], gipo_token,
@@ -67,13 +66,10 @@ def gipo_handler():
            send_message(parsed['chat_id'], gipo_token, f"Первый платеж (проценты): {round(m.initial_interest_payment, 2)}")
            send_message(parsed['chat_id'], gipo_token,
                         f"Первый платеж (основной долг): {round(m.initial_principal_payment, 2)}")
-
            return Response('Ok', status=200)
-
        else:
            send_message(parsed['chat_id'], gipo_token, '.....')
            return Response('Ok', status=200)
-
     else:
         return '<h1>Gipo</h1>'
 
@@ -110,17 +106,12 @@ def cheesebothandler():
                 list_of_prices = p.show_prices_by_date(current_date)
                 for el in list_of_prices:
                     send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
-
             return Response('Ok', status=200)
-
         else:
             send_message(parsed['chat_id'], cheeze_token, parsed['txt'])
             return Response('Ok', status=200)
     else:
         return '<h1>Cheeeese</h1>'
-
-
-
 
 
 if __name__ == '__main__':
