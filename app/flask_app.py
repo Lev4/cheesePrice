@@ -32,6 +32,7 @@ def outer_gipo_handler():
         msg = request.get_json()
         parsed = parse_message(msg)
         inner_gipo_handler(parsed)
+        return Response('Ok', status=200)
     else:
         return '<h1>Gipo</h1>'
 
