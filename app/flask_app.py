@@ -9,8 +9,6 @@ from tokens import gipo_token, cheeze_token
 from datetime import datetime, timedelta
 from prices import Prices
 
-# from users import Users
-
 prices_db = "prices.sqlite3"
 users_db = "users.sqlite3"
 
@@ -40,7 +38,7 @@ def bothandler():
             return Response('Ok', status=200)
 
         elif parsed['txt'] == '/calc':
-            send_message(parsed['chat_id'], gipo_token,'Ввведите через разделитель следующие данные')
+            send_message(parsed['chat_id'], gipo_token, 'Ввведите через разделитель следующие данные')
             send_message(parsed['chat_id'], gipo_token, 'стоимость объекта / первоначальный взнос в % / процентную ставку в % / количество лет ипотеки')
             send_message(parsed['chat_id'], gipo_token, 'Пример:')
             send_message(parsed['chat_id'], gipo_token, '3000000 / 20 / 10 / 30')

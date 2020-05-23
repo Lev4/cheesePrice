@@ -7,7 +7,10 @@ def parse_message(message):
     parsed['user_id'] = message['message']['from']['id']
     parsed['first_name'] = message['message']['from']['first_name']
     parsed['last_name'] = message['message']['from']['last_name']
-    parsed['username'] = message['message']['from']['username']
+    if message['message']['from']['username']:
+        parsed['username'] = message['message']['from']['username']
+    else:
+        parsed['username'] = ""
     parsed['message_id'] = message['message']['message_id']
     parsed['update_id'] = message['update_id']
     parsed['mes_date'] = message['message']['date']
