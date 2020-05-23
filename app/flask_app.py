@@ -9,7 +9,7 @@ from tokens import gipo_token, cheeze_token
 from datetime import datetime, timedelta
 from prices import Prices
 from users import Users
-from calculatorBotHandler import inner_gipo_handler
+
 
 prices_db = "prices.sqlite3"
 users_db = "users.sqlite3"
@@ -36,6 +36,7 @@ def gipo_handler():
        if (not parsed['txt']):
            send_message(parsed['chat_id'], gipo_token, '...')
            return Response('Ok', status=200)
+
        elif parsed['txt'] == '/calc':
            send_message(parsed['chat_id'], gipo_token, 'Ввведите через разделитель следующие данные')
            send_message(parsed['chat_id'], gipo_token,
@@ -67,11 +68,10 @@ def gipo_handler():
            send_message(parsed['chat_id'], gipo_token,
                         f"Первый платеж (основной долг): {round(m.initial_principal_payment, 2)}")
            return Response('Ok', status=200)
+
        else:
            send_message(parsed['chat_id'], gipo_token, '.....')
            return Response('Ok', status=200)
-    else:
-        return '<h1>Gipo</h1>'
 
 
 
