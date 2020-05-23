@@ -88,6 +88,12 @@ def cheesebothandler():
 
         if parsed['txt'] == '/price':
 
+            usersss = u.get_users_id()
+            print(usersss)
+            if parsed['user_id'] not in usersss:
+                u.adduser(parsed['user_id'], parsed['username'], "NO")
+                print(f"add user {parsed['user_id']}")
+
             # cheeze_price = getCheesePrice()
             current_date = datetime.today().strftime("%d-%m-%Y")
             yesterday_date = datetime.today() - timedelta(days=1)
