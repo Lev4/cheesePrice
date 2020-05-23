@@ -15,7 +15,7 @@ users_db = "users.sqlite3"
 
 p = Prices(prices_db)
 p.create_tab()
-u.Users(users_db)
+u = Users(users_db)
 
 app = Flask(__name__)
 sslify = SSLify(app)
