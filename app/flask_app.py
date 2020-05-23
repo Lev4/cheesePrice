@@ -28,7 +28,14 @@ def index():
 
 @app.route('/gipo', methods=['POST', 'GET'])
 def outer_gipo_handler():
-    inner_gipo_handler()
+    if request.method == 'POST':
+        msg = request.get_json()
+        parsed = parse_message(msg)
+        inner_gipo_handler(parsed)
+    else:
+        return '<h1>Gipo</h1>'
+
+
 
 
 @app.route('/cheeze', methods=['POST', 'GET'])
