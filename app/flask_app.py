@@ -145,8 +145,8 @@ def cheesebothandler():
         elif parsed['txt'] == '/unsubscribe':
             current_user_id = parsed['user_id']
             subscribe_no_message = """
-            Вы подписаны на уведомления об изменениях цен.
-            Для того чтобы отключить уведомления используйте команду /unsubscribe
+            Вы не подписаны на уведомления об изменениях цен.
+            Если захотите получать уведомления используйте команду /subscribe
             """
             u.update_user_status(current_user_id, "NO")
             send_message(parsed['chat_id'], cheeze_token, subscribe_no_message)
