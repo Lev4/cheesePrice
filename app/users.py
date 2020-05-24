@@ -29,7 +29,8 @@ class Users:
         self._stmt_executer(stmt)
 
     def adduser(self, user_id, username, chat_id, status):
-        stmt = f"INSERT INTO users ('user_id','username','status') VALUES ('{user_id}','{username}','{chat_id}','{status}')"
+        stmt = f"""INSERT INTO users ('user_id','username','chat_id','status')
+                VALUES ('{user_id}','{username}','{chat_id}','{status}')"""
         self._stmt_executer(stmt)
 
     def update_user_status(self, user_id, status):
