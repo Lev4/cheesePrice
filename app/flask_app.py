@@ -143,6 +143,7 @@ def cheesebothandler():
             return Response('Ok', status=200)
 
         elif parsed['txt'] == '/unsubscribe':
+            current_user_id = parsed['user_id']
             subscribe_no_message = """
             Вы подписаны на уведомления об изменениях цен.
             Для того чтобы отключить уведомления используйте команду /unsubscribe
