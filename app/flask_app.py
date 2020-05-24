@@ -114,8 +114,10 @@ def cheesebothandler():
 
         elif parsed['txt'] == '/subscription':
             users_to_update = u.get_users_to_update()
+            print("users_to_update")
             if len(users_to_update) > 0:
                 users_to_update = [x[0] for x in users_to_update]
+
             current_user_id = parsed['user_id']
             if current_user_id in users_to_update:
                 subscribe_info_yes = """
@@ -123,6 +125,7 @@ def cheesebothandler():
                 Для того чтобы отключить уведомления используйте команду /unsubscribe
                 """
                 send_message(parsed['chat_id'], cheeze_token, subscribe_info_yes)
+
                 return Response('Ok', status=200)
             else:
                 subscribe_info_no = """ 
