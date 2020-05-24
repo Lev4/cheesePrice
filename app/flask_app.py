@@ -119,9 +119,9 @@ def cheesebothandler():
             if len(users_to_update) > 0:
                 users_to_update = [x[0] for x in users_to_update]
 
-            current_user_id = parsed['user_id']
+            current_user_id = str(parsed['user_id'])
             current_user_status = u.get_user_status(current_user_id)
-            current_user_status = [x[0][0] for x in current_user_status]
+            current_user_status = [x[0] for x in current_user_status]
             print(current_user_status)
             send_message(parsed['chat_id'], cheeze_token, current_user_status)
             send_message(parsed['chat_id'], cheeze_token, users_to_update)
