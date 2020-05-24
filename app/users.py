@@ -24,12 +24,12 @@ class Users:
 
         stmt = """
         CREATE TABLE IF NOT EXISTS users
-              (user_id text, username text, status text);
+              (user_id text, username text, chat_id text, status text);
         """
         self._stmt_executer(stmt)
 
-    def adduser(self, user_id, username, status):
-        stmt = f"INSERT INTO users ('user_id','username','status') VALUES ('{user_id}','{username}','{status}')"
+    def adduser(self, user_id, username, chat_id, status):
+        stmt = f"INSERT INTO users ('user_id','username','status') VALUES ('{user_id}','{username}','{chat_id}','{status}')"
         self._stmt_executer(stmt)
 
     def update_user_status(self, user_id, status):

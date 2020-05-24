@@ -122,10 +122,10 @@ def cheesebothandler():
             current_user_id = str(parsed['user_id'])
             current_user_status = u.get_user_status(current_user_id)
             current_user_status = [x[0] for x in current_user_status]
-            print(current_user_status)
-            send_message(parsed['chat_id'], cheeze_token, current_user_status)
-            send_message(parsed['chat_id'], cheeze_token, users_to_update)
-            send_message(parsed['chat_id'], cheeze_token, current_user_id)
+            # print(current_user_status)
+            # send_message(parsed['chat_id'], cheeze_token, current_user_status)
+            # send_message(parsed['chat_id'], cheeze_token, users_to_update)
+            # send_message(parsed['chat_id'], cheeze_token, current_user_id)
             if current_user_id in users_to_update:
                 subscribe_info_yes = """
                 Вы подписаны на уведомления об изменениях цен.
@@ -162,6 +162,14 @@ def cheesebothandler():
             u.update_user_status(current_user_id, "NO")
             send_message(parsed['chat_id'], cheeze_token, subscribe_no_message)
             return Response('Ok', status=200)
+
+        elif parsed['txt'] == '/order':
+            order_message = """Оформить заказ можно по телефонам: """
+            phone1_message = "+7(936)000-56-48"
+            phone2_message = "+7(926)975-96-22"
+            send_message(parsed['chat_id'], cheeze_token, order_message)
+            send_message(parsed['chat_id'], cheeze_token, phone1_message)
+            send_message(parsed['chat_id'], cheeze_token, phone2_message)
 
         else:
             send_message(parsed['chat_id'], cheeze_token, parsed['txt'])
