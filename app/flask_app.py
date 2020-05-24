@@ -170,6 +170,7 @@ def cheesebothandler():
             send_message(parsed['chat_id'], cheeze_token, order_message)
             send_message(parsed['chat_id'], cheeze_token, phone1_message)
             send_message(parsed['chat_id'], cheeze_token, phone2_message)
+            return Response('Ok', status=200)
 
         else:
             send_message(parsed['chat_id'], cheeze_token, parsed['txt'])
