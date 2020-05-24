@@ -121,8 +121,10 @@ def cheesebothandler():
 
             current_user_id = parsed['user_id']
             current_user_status = u.get_user_status(current_user_id)
+            current_user_status = [x[0] for x in current_user_status]
             print(current_user_status)
             send_message(parsed['chat_id'], cheeze_token, current_user_status)
+            send_message(parsed['chat_id'], cheeze_token, users_to_update)
             if current_user_id in users_to_update:
                 subscribe_info_yes = """
                 Вы подписаны на уведомления об изменениях цен.
