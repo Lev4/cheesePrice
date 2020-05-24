@@ -91,7 +91,7 @@ def cheesebothandler():
             usersss = u.get_users_id()
             print(usersss)
             if parsed['user_id'] not in usersss:
-                u.adduser(parsed['user_id'], parsed['username'], "NO")
+                u.adduser(parsed['user_id'], parsed['username'], parsed['chat_id'], "NO")
                 print(f"add user {parsed['user_id']}")
 
 
