@@ -110,6 +110,7 @@ def cheesebothandler():
                 list_of_prices = p.show_prices_by_date(current_date)
                 for el in list_of_prices:
                     send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
+
             return Response('Ok', status=200)
 
         elif parsed['txt'] == '/subscription':
@@ -119,12 +120,16 @@ def cheesebothandler():
                 users_to_update = [x[0] for x in users_to_update]
 
             current_user_id = parsed['user_id']
+            current_user_status = u.get_user_status(current_user_id)
+            print(current_user_status)
+            send_message(parsed['chat_id'], cheeze_token, current_user_status)
             if current_user_id in users_to_update:
                 subscribe_info_yes = """
                 Вы подписаны на уведомления об изменениях цен.
                 Для того чтобы отключить уведомления используйте команду /unsubscribe
                 """
                 send_message(parsed['chat_id'], cheeze_token, subscribe_info_yes)
+
 
                 return Response('Ok', status=200)
             else:

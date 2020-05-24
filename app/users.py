@@ -45,3 +45,8 @@ class Users:
         stmt = f"SELECT user_id FROM users"
         self._stmt_executer(stmt)
         return self._stmt_executer(stmt, get_data=True)
+
+    def get_user_status(self, user_id):
+        stmt = f"SELECT status  FROM users WHERE user_id = '{user_id}' "
+        self._stmt_executer(stmt)
+        return self._stmt_executer(stmt, get_data=True)
