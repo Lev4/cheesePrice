@@ -88,7 +88,6 @@ def cheesebothandler():
         parsed = parse_message(msg)
 
         if parsed['txt'] == '/price':
-            u.adduser(parsed['user_id'], parsed['username'], "NO")
             usersss = u.get_users_id()
             print(usersss)
             if parsed['user_id'] not in usersss:
@@ -97,7 +96,7 @@ def cheesebothandler():
 
             # cheeze_price = getCheesePrice()
             current_date = datetime.today().strftime("%d-%m-%Y")
-            yesterday_date = datetime.today() - timedelta(days=1)
+            # yesterday_date = datetime.today() - timedelta(days=1)
             yesterday_date = yesterday_date.strftime("%d-%m-%Y")
             send_message(parsed['chat_id'], cheeze_token, f"На {current_date} цены на сыр таковы:")
 
@@ -114,9 +113,49 @@ def cheesebothandler():
                 for el in list_of_prices:
                     send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
             return Response('Ok', status=200)
+
+        elif parsed['txt'] == '/subscription':
+            users_to_update = u.get_users_to_update()
+            current_user_id = parsed['user_id']
+            if current_user_id in users_to_update:
+                subscribe_info_yes = """
+                Вы подписаны на уведомления об изменениях цен.
+                Для того чтобы отключить уведомления используйте команду /unsubscribe
+                """
+                send_message(parsed['chat_id'], cheeze_token, subscribe_info_yes)
+                return Response('Ok', status=200)
+            else:
+                subscribe_info_no = """ 
+                Вы не подписаны на уведомления об изменениях цен.
+                Для того чтобы подписаться используйте команду /subscribe
+                """
+                send_message(parsed['chat_id'], cheeze_token, subscribe_info_no)
+                return Response('Ok', status=200)
+
+        elif parsed['txt'] == '/subscribe':
+            current_user_id = parsed['user_id']
+            subscribe_yes_message = """
+            Вы подписаны на уведомления об изменениях цен.
+            Для того чтобы отключить уведомления используйте команду /unsubscribe
+            """
+            update_user_status(self, current_user_id, "YES")
+            send_message(parsed['chat_id'], cheeze_token, subscribe_yes_message)
+            return Response('Ok', status=200)
+
+        elif parsed['txt'] == '/unsubscribe':
+            subscribe_no_message = """
+            Вы подписаны на уведомления об изменениях цен.
+            Для того чтобы отключить уведомления используйте команду /unsubscribe
+            """
+            update_user_status(self, current_user_id, "NO")
+            send_message(parsed['chat_id'], cheeze_token, subscribe_no_message)
+            return Response('Ok', status=200)
+
         else:
             send_message(parsed['chat_id'], cheeze_token, parsed['txt'])
             return Response('Ok', status=200)
+
+
     else:
         return '<h1>Cheeeese</h1>'
 
