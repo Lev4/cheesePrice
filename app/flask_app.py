@@ -94,10 +94,8 @@ def cheesebothandler():
                 u.adduser(parsed['user_id'], parsed['username'], "NO")
                 print(f"add user {parsed['user_id']}")
 
-            # cheeze_price = getCheesePrice()
+
             current_date = datetime.today().strftime("%d-%m-%Y")
-            # yesterday_date = datetime.today() - timedelta(days=1)
-            yesterday_date = yesterday_date.strftime("%d-%m-%Y")
             send_message(parsed['chat_id'], cheeze_token, f"На {current_date} цены на сыр таковы:")
 
             all_dates = list(set([x[0] for x in p.show_dates()]))
@@ -106,7 +104,7 @@ def cheesebothandler():
                 list_of_prices = p.show_prices_by_date(current_date)
                 for el in list_of_prices:
                     send_message(parsed['chat_id'], cheeze_token, f"{el[1]}:{el[2]} ")
-                # p.compare_prices(yesterday_date, current_date)
+
             else:
                 cheeze_price = getCheesePrice(save_to_db=True)
                 list_of_prices = p.show_prices_by_date(current_date)
@@ -116,6 +114,8 @@ def cheesebothandler():
 
         elif parsed['txt'] == '/subscription':
             users_to_update = u.get_users_to_update()
+            if len(users_to_update) > 0:
+                users_to_update = [x[0] for x in users_to_update]
             current_user_id = parsed['user_id']
             if current_user_id in users_to_update:
                 subscribe_info_yes = """
@@ -136,7 +136,7 @@ def cheesebothandler():
             current_user_id = parsed['user_id']
             subscribe_yes_message = """
             Вы подписаны на уведомления об изменениях цен.
-            Для того чтобы отключить уведомления используйте команду /unsubscribe
+            Для того чтобы отключить уведомления, используйте команду /unsubscribe
             """
             u.update_user_status(current_user_id, "YES")
             send_message(parsed['chat_id'], cheeze_token, subscribe_yes_message)
@@ -146,7 +146,7 @@ def cheesebothandler():
             current_user_id = parsed['user_id']
             subscribe_no_message = """
             Вы не подписаны на уведомления об изменениях цен.
-            Если захотите получать уведомления используйте команду /subscribe
+            Если захотите получать уведомления, используйте команду /subscribe
             """
             u.update_user_status(current_user_id, "NO")
             send_message(parsed['chat_id'], cheeze_token, subscribe_no_message)
