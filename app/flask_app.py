@@ -114,7 +114,7 @@ def cheesebothandler():
 
         elif parsed['txt'] == '/subscription':
             users_to_update = u.get_users_to_update()
-            print("users_to_update")
+            print(users_to_update)
             if len(users_to_update) > 0:
                 users_to_update = [x[0] for x in users_to_update]
 
