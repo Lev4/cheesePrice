@@ -138,7 +138,7 @@ def cheesebothandler():
             Вы подписаны на уведомления об изменениях цен.
             Для того чтобы отключить уведомления используйте команду /unsubscribe
             """
-            update_user_status(self, current_user_id, "YES")
+            u.update_user_status(self, current_user_id, "YES")
             send_message(parsed['chat_id'], cheeze_token, subscribe_yes_message)
             return Response('Ok', status=200)
 
