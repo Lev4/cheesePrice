@@ -1,13 +1,16 @@
 from bs4 import BeautifulSoup
-import requests
-from datetime import datetime
 from prices import Prices
-prices_db = "prices.sqlite3"
+from users import Users
+from botutils import parse_message, send_message
+from tokens import gipo_token, cheeze_token
+from datetime import datetime, timedelta
+import requests
 
+prices_db = "prices.sqlite3"
+users_db = "users.sqlite3"
 
 
 def getCheesePrice(save_to_db=False, check_price=False):
-
     """ Залезает на сайт parmezan.ru и вытаскивает оттуда цены"""
 
     cheesePriceId = {
@@ -35,7 +38,6 @@ def getCheesePrice(save_to_db=False, check_price=False):
         if soup.find(id=v) is not None:
             cheesePrice[k] = soup.find(id=v).text.strip()
 
-
     if save_to_db:
 
         p = Prices(prices_db)
@@ -50,16 +52,31 @@ def getCheesePrice(save_to_db=False, check_price=False):
         else:
             print(f"На {current_date} уже загружены цены")
 
-
-        # if check_price:
-        #     message = p.check_price_change()
-        #     if len(message) > 0:
-        #         send_message(parsed['chat_id'], cheeze_token, parsed['txt'])
-
-
-
     return cheesePrice
+
+
+def send_updates():
+
+    p = Prices(prices_db)
+    p.create_tab()
+    current_date = datetime.today().strftime("%d-%m-%Y")
+    day_before_current_date = datetime.today() - timedelta(1)
+    day_before_current_date = day_before_current_date.strftime("%d-%m-%Y")
+    message = p.check_price_change(day_before_current_date, current_date)
+
+    if len(message) > 0:
+
+        u = Users(users_db)
+        u.create_tab()
+        where_to_send = u.get_users_chatid_to_update()
+
+        if len(where_to_send) > 0:
+            where_to_send = [x[0] for x in where_to_send]
+
+            for user_chat_id in where_to_send:
+                send_message(user_chat_id, cheeze_token, message)
 
 
 if __name__ == '__main__':
     getCheesePrice(save_to_db=True, check_price=False)
+    send_updates()

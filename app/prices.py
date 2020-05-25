@@ -62,7 +62,7 @@ class Prices:
         print(diff_dict)
         return diff_dict
 
-    def check_price_change(self):
+    def check_price_change(self, date1, date2 ):
 
         diff_dict = _compare_prices(self, date1, date2)
         message = ""

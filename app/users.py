@@ -51,3 +51,8 @@ class Users:
         stmt = f"SELECT status  FROM users WHERE user_id = '{user_id}' "
         self._stmt_executer(stmt)
         return self._stmt_executer(stmt, get_data=True)
+
+    def get_users_chatid_to_update(self):
+        stmt = f"SELECT chat_id FROM users WHERE status = 'YES' "
+        self._stmt_executer(stmt)
+        return self._stmt_executer(stmt, get_data=True)

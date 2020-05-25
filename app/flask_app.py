@@ -165,8 +165,8 @@ def cheesebothandler():
 
         elif parsed['txt'] == '/order':
             order_message = "Оформить заказ можно по телефонам: "
-            phone1_message = "+7(936)000-56-48"
-            phone2_message = "+7(926)975-96-22"
+            phone1_message = "+7(936)0005648"
+            phone2_message = "+7(926)9759622"
             send_message(parsed['chat_id'], cheeze_token, order_message)
             send_message(parsed['chat_id'], cheeze_token, phone1_message)
             send_message(parsed['chat_id'], cheeze_token, phone2_message)
